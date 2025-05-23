@@ -2,10 +2,42 @@ import pandas as pd
 import itertools
 import openpyxl
 
-season = '2020to2021'
-week = input("Enter the game week: ")
-csv = season + '/gw' + str(week) + '.csv'     
+response = False
+while response == False:
+    print('a) 2020/2021')
+    print('b) 2020/2021')
+    print('c) 2020/2021')
+    print('d) 2020/2021')
+    pickSeason = input("Pick the letter for your desired season: ")
+    if pickSeason == 'a' or pickSeason == 'A':
+        season = '2020to2021'
+        response = True
+    elif pickSeason == 'b' or pickSeason == 'B':
+        season = '2021to2022'
+        response = True
+    elif pickSeason == 'c' or pickSeason == 'C':
+        season = '2022to2023'
+        response = True
+    elif pickSeason == 'd' or pickSeason == 'D':
+        season = '2023to2024'
+        response = True
+    else:
+        print('Please choose a valid letter!')
+        print()
 
+
+gameWeek = False
+while gameWeek == False:
+    week = input("Enter the game week (1-38): ")
+    if int(week) >= 1 and int(week) <= 38:
+        gameWeek = True
+    else:
+        print('Pick a valid game week!')
+        print()
+
+
+csv = season + '/gw' + str(week) + '.csv'     
+     
 # pull out relevant values: 'name', 'position', 'team', 'total_points'
 gw1 = pd.read_csv(csv)
 gw1Grouped = gw1.loc[:, ['name', 'position', 'team', 'total_points']] 
