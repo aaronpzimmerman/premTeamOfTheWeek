@@ -74,18 +74,11 @@ for index, position in enumerate(gw1Pos):
         helper1(dataGoalkeepers)
 
 
-# SECTION
-# SECTION
-# SECTION
-
-
 # helper function 2
 def helper2(y, pos, num1, num2):
     # converting lists to DataFrames and ranking
     x = pd.DataFrame(columns=['name', 'position', 'team', 'total_points'])
     z = pd.concat([x, pd.DataFrame(y)], ignore_index=True)
-    print('------------------------------------------------------------')
-    print(pos)
     sortedPosition = z.sort_values(by='total_points', ascending=False, ignore_index=True)
     # Find top scores of positions and including players 
     # with equal point scores for the last available spot
@@ -98,13 +91,9 @@ def helper2(y, pos, num1, num2):
             best = sortedPosition.head(i+1)
             i += 1
             s2 = sortedPosition.iloc[i]['total_points']
-        print(' (Best' + pos + 'Appended)')
-        print(best)
         return best
     else:
         best = sortedPosition.head(num2)
-        print(' (No extra ' + pos + ')')
-        print(best)
         return best
 
 
@@ -119,12 +108,6 @@ bestForwards['name'] += ' (' + bestForwards['position'].astype(str) + ') (' + be
 bestMidfielders['name'] += ' (' + bestMidfielders['position'].astype(str) + ') (' + bestMidfielders['total_points'].astype(str) + ')'
 bestDefenders['name'] += ' (' + bestDefenders['position'].astype(str) + ') (' + bestDefenders['total_points'].astype(str) + ')'
 bestGoalkeepers['name'] += ' (' + bestGoalkeepers['position'].astype(str) + ') (' + bestGoalkeepers['total_points'].astype(str) + ')'
-
-
-# SECTION
-# SECTION
-# SECTION
-
 
 # Player counts for possible formations
 goalkeeper = bestGoalkeepers.iloc[0]['total_points']
@@ -160,8 +143,6 @@ formationsTable = pd.DataFrame({'Formations': ['1-3-4-3', '1-3-5-2', '1-4-3-3',
 
 # Ranking Formations
 sortedFormations = formationsTable.sort_values(by='Sums', ascending=False, ignore_index=True)
-print('------------------------------------------------------------')
-print('Best Formation(s)')
 
 # Checking for formations with duplicate sums
 sForm1 = sortedFormations.iloc[0]['Sums']
@@ -176,17 +157,8 @@ if match_countForm > 1:
         bestFormations = sortedFormations.head(i+1)
         i += 1
         sForm2 = sortedFormations.iloc[i]['Sums']
-    print(' (Best Formations Appended)')
-    print(bestFormations)
 else:
     bestFormations = sortedFormations.head(1)
-    print(' (No extra Formations)')
-    print(bestFormations)
-
-
-# SECTION
-# SECTION
-# SECTION
 
 
 # turns data frame into list
@@ -328,11 +300,6 @@ for formation in bestFormations.loc[:, 'Formations']:
     formationsList.append(forwardsFinal_list)
 
 
-# SECTION
-# SECTION
-# SECTION
-
-
 # helper function 5
 # (len(nestedList) - count(pos + 'Variation'))/count(pos +'Variation') = number players
 def helper5(formationsList, i, pos, posList):
@@ -382,26 +349,6 @@ while i < len(formationsList):
         helper5(formationsList, i, 'Forwards', permForwards)
         m += 9
         i += 3
-print('------------------------------------------------------------')
-print('To be permutated into final form')
-print()
-print('Goalkeepers')
-print(permGoalkeepers)
-print()
-print('Defenders')
-print(permDefenders)
-print()
-print('Midfielders')
-print(permMidfielders)
-print()
-print('Forwards')
-print(permForwards)
-print('------------------------------------------------------------')
-
-          
-# SECTION
-# SECTION
-# SECTION
 
 
 # helper function 6
@@ -419,7 +366,6 @@ formLocFwd = []
 helper6(permDefenders, formLocDef)
 helper6(permMidfielders, formLocMid)
 helper6(permForwards, formLocFwd)
-
 
 del permGoalkeepers[0]
 finalList = ['Formation']
@@ -467,14 +413,8 @@ def flatten_list(nested_list):
     return flat_list 
 
 
-print('Final List')
-finalListDenest = flatten_list(finalList)
-print(finalListDenest)
-checkWork = finalList.count('Variation')
-print()
-print('This list has ' + str(checkWork) + ' variation(s).')
-
 # converting list to DataFrame
+finalListDenest = flatten_list(finalList)
 finalListdf = pd.DataFrame()
 i = 0  # formation loop
 j = 1  # variation loop
@@ -495,7 +435,11 @@ for element in finalListDenest:
         finalListdf.loc[k, varName] = element
         k += 1
 
+print()
 print(finalListdf)
 
 # Converting to excel 
-finalListdf.to_csv('C:\\Users\\aaron\\VSCode\\fantasyPremProject\\' + season + '\\Teams of the Week\\' + 'gw' + str(week) + 'bestTeams.csv', index = False)
+finalListdf.to_csv(season + '\\Teams of the Week\\' + 'gw' + str(week) + 'bestTeams.csv', index = False)
+print()
+print('"gw' + str(week) + 'bestTeams.csv" has been saved to ".../' + season + '/Teams of the Week"')
+print()
