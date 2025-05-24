@@ -5,9 +5,9 @@ import openpyxl
 response = False
 while response == False:
     print('a) 2020/2021')
-    print('b) 2020/2021')
-    print('c) 2020/2021')
-    print('d) 2020/2021')
+    print('b) 2021/2022')
+    print('c) 2022/2023')
+    print('d) 2023/2024')
     pickSeason = input("Pick the letter for your desired season: ")
     if pickSeason == 'a' or pickSeason == 'A':
         season = '2020to2021'
